@@ -14,7 +14,10 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+//import edu.wpi.first.wpilibj2.
 import frc.robot.Subsystems.DrivetrainSubsystem;
+import frc.robot.Subsystems.OuttakeSubsystem;
+//import frc.robot.Subsystems.OuttakeSubsystem;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -27,6 +30,7 @@ public class Robot extends TimedRobot {
   private final DifferentialDrive m_robotDrive =
       new DifferentialDrive(m_leftDrive::set, m_rightDrive::set);
   private final XboxController m_controller = new XboxController(0);
+
   private final Timer m_timer = new Timer();
 
   CommandXboxController controller = new CommandXboxController(0);
@@ -34,7 +38,7 @@ public class Robot extends TimedRobot {
   DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem(); 
 
   private double modifyJoystick(double in) {
-    if (Math.abs(in) < 0.05) {
+    if (Math.abs(in) < 0.1) {
       return 0; 
     }
     return in * in * Math.signum(in);
@@ -98,5 +102,11 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
+
+    controller.rightTrigger().whileTrue(OuttakeSubsystem.setOuttakeVoltagesArcadeCommand(null));
+
+
+    
+
   }
 }
