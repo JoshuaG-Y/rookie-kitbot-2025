@@ -34,7 +34,7 @@ public class OuttakeSubsystem extends SubsystemBase {
 
     config.idleMode(IdleMode.kCoast);
 
-    Dropper.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    Dropper.SparkMaxConfig(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     
   }

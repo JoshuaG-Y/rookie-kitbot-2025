@@ -4,17 +4,25 @@
 
 package frc.robot.Subsystems;
 
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.SparkBaseConfig;
-import com.revrobotics.config.BaseConfig;
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-import com.revrobotics.spark.SparkBase.PersistMode;
+import java.util.function.DoubleSupplier;
+import com.revrobotics.spark.SparkBase.PersistMode; 
 import com.revrobotics.spark.SparkBase.ResetMode; 
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import com.ctre.phoenix6.controls.VoltageOut;
+
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 
 public class OuttakeTest extends SubsystemBase {
-  /** Creates a new OuttakeTest. */
+  public static final int SPARKMAX_OUTTAKE_ID = 1;
+
+  PWMSparkMax outtakeMotor = new PWMSparkMax(SPARKMAX_OUTTAKE_ID);
   public OuttakeTest() {}
 
   @Override

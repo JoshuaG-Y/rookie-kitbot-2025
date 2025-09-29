@@ -103,8 +103,6 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
 
-    controller.rightTrigger().whileTrue(OuttakeSubsystem.setOuttakeVoltagesArcadeCommand(null));
-
 
     
 
