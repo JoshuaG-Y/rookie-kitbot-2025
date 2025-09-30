@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 //import edu.wpi.first.wpilibj2.
 import frc.robot.Subsystems.DrivetrainSubsystem;
 
@@ -43,6 +44,7 @@ public class Robot extends TimedRobot {
   
   DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
 
+<<<<<<< HEAD
   OuttakeTest outtakesubsystemmain = new OuttakeTest(); 
 
    
@@ -52,6 +54,13 @@ public class Robot extends TimedRobot {
         return 0; 
       }
       return in * in * Math.signum(in);
+=======
+  OuttakeTest m_outtakeSubsystem = new OuttakeTest();
+
+  private double modifyJoystick(double in) {
+    if (Math.abs(in) < 0.1) {
+      return 0; 
+>>>>>>> 3b914968f074d5b90b064fd7bf72c2c7945c37d6
     }
   
     /** Called once at the beginning of the robot program. */
@@ -66,16 +75,30 @@ public class Robot extends TimedRobot {
       System.out.println("Class: Robot Running.");
       
 
+<<<<<<< HEAD
   
       drivetrainSubsystem.setDefaultCommand(
         drivetrainSubsystem.setVoltagesArcadeCommand(
             () -> modifyJoystick(-controller.getLeftY()),
             () -> modifyJoystick(-controller.getRightX())));
+=======
+
+
+
+
+
+
+  /** Called once at the beginning of the robot program. */
+  public Robot() {
+    SendableRegistry.addChild(m_robotDrive, m_leftDrive);
+    SendableRegistry.addChild(m_robotDrive, m_rightDrive);
+>>>>>>> 3b914968f074d5b90b064fd7bf72c2c7945c37d6
 
       
             controller.rightTrigger(0.2).whileTrue(
               outtakesubsystemmain.run(() -> outtakesubsystemmain.setOuttakeVoltagesArcadeCommand(1.0) )
 
+<<<<<<< HEAD
             );
             controller.leftTrigger(0.2).toggleOnTrue(
             drivetrainSubsystem.run(() -> drivetrainSubsystem.setVoltagesArcadeCommand(
@@ -84,6 +107,38 @@ public class Robot extends TimedRobot {
             ))
            );
             
+=======
+    drivetrainSubsystem.setDefaultCommand(
+      drivetrainSubsystem.setVoltagesArcadeCommand(
+          () -> modifyJoystick(-controller.getLeftY()),
+          () -> modifyJoystick(-controller.getRightX())));
+    
+    controller.rightTrigger(0.2).whileTrue(
+        m_outtakeSubsystem.setOuttakeVoltagesArcadeCommand(
+          controller.getRightTriggerAxis()
+        )
+      );
+    
+  }
+
+
+
+  /** This function is run once each time the robot enters autonomous mode. */
+  @Override
+  public void autonomousInit() {
+    m_timer.restart();
+  }
+
+  /** This function is called periodically during autonomous. */
+  @Override
+  public void autonomousPeriodic() {
+    // Drive for 2 seconds
+    if (m_timer.get() < 2.0) {
+      // Drive forwards half speed, make sure to turn input squaring off
+      m_robotDrive.arcadeDrive(0.5, 0.0, false);
+    } else {
+      m_robotDrive.stopMotor(); // stop robot
+>>>>>>> 3b914968f074d5b90b064fd7bf72c2c7945c37d6
     }
     private DifferentialDrive drive; 
   
@@ -129,10 +184,16 @@ public class Robot extends TimedRobot {
 
 
 
+<<<<<<< HEAD
     @Override
     public void robotPeriodic() {
       CommandScheduler.getInstance().run();
   
+=======
+  @Override
+  public void robotPeriodic() {
+    CommandScheduler.getInstance().run();
+>>>>>>> 3b914968f074d5b90b064fd7bf72c2c7945c37d6
 
 
     
