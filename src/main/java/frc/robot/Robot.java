@@ -70,7 +70,7 @@ public class Robot extends TimedRobot {
           () -> modifyJoystick(-controller.getLeftY()),
           () -> modifyJoystick(-controller.getRightX())));
     
-    controller.rightTrigger(0.8).whileTrue(
+    controller.rightTrigger(0.2).whileTrue(
         m_outtakeSubsystem.setOuttakeVoltagesArcadeCommand(
           controller.getRightTriggerAxis()
         )
