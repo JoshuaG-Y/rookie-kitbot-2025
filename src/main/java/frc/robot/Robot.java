@@ -14,10 +14,12 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 //import edu.wpi.first.wpilibj2.
 import frc.robot.Subsystems.DrivetrainSubsystem;
 import frc.robot.Subsystems.OuttakeSubsystem;
 //import frc.robot.Subsystems.OuttakeSubsystem;
+import frc.robot.Subsystems.OuttakeTest;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -37,12 +39,20 @@ public class Robot extends TimedRobot {
   
   DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem(); 
 
+  OuttakeTest m_outtakeSubsystem = new OuttakeTest();
+
   private double modifyJoystick(double in) {
     if (Math.abs(in) < 0.1) {
       return 0; 
     }
     return in * in * Math.signum(in);
   }
+
+
+
+
+
+
 
   /** Called once at the beginning of the robot program. */
   public Robot() {
@@ -59,6 +69,15 @@ public class Robot extends TimedRobot {
       drivetrainSubsystem.setVoltagesArcadeCommand(
           () -> modifyJoystick(-controller.getLeftY()),
           () -> modifyJoystick(-controller.getRightX())));
+    
+    controller.rightTrigger(0.8).whileTrue(
+      m_outtakeSubsystem.run(() ->
+        m_outtakeSubsystem.setOuttakeVoltagesArcadeCommand(
+          controller.getRightTriggerAxis() * 12
+        )
+      )
+    );
+    
   }
 
 

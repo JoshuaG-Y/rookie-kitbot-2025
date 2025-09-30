@@ -41,12 +41,12 @@ public class OuttakeTest extends SubsystemBase {
     outtakeMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
   
   }
-   public Command setOuttakeVoltagesArcadeCommand(DoubleSupplier drop) {
+   public Command setOuttakeVoltagesArcadeCommand(Double drop) {
     System.out.println("Command: setOuttakeVoltagesArcadeCommand: Running. ");
     return this.run(() -> {
       System.out.println("Command: setVoltagesArcadeCommand 2: Running.");
-      double score = drop.getAsDouble();
-      this.setVoltages(score * 10);
+      double score = drop;
+      this.setVoltages(score * 12);
   }); 
 
   }
