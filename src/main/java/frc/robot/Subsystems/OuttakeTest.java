@@ -4,6 +4,7 @@
 
 package frc.robot.Subsystems;
 
+import java.io.ObjectInputFilter.Config;
 import java.util.function.DoubleSupplier;
 import com.revrobotics.spark.SparkBase.PersistMode; 
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -24,7 +25,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 public class OuttakeTest extends SubsystemBase {
   public static final int SPARKMAX_OUTTAKE_ID = 1;
 
-  SparkMax outtakeMotor = new SparkMax(SPARKMAX_OUTTAKE_ID, MotorType.kBrushed);
+  SparkMax outtakeMotor = new SparkMax(SPARKMAX_OUTTAKE_ID, SparkMax.MotorType.kBrushed);
 
   private void setVoltages(double volt) {
     outtakeMotor.setVoltage(volt);
@@ -34,11 +35,21 @@ public class OuttakeTest extends SubsystemBase {
   public Command setVoltagesCommand(DoubleSupplier volt) {
     return this.run(() -> this.setVoltages(volt.getAsDouble()));
   }
+  public OuttakeTest() {
+    SparkMaxConfig config = new SparkMaxConfig();
+    config.idleMode(IdleMode.kCoast);
+    outtakeMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+  
+  }
+   public Command setOuttakeVoltagesArcadeCommand(DoubleSupplier drop) {
+    System.out.println("Command: setOuttakeVoltagesArcadeCommand: Running. ");
+    return this.run(() -> {
+      System.out.println("Command: setVoltagesArcadeCommand 2: Running.");
+      double score = drop.getAsDouble();
+      this.setVoltages(score * 10);
+  }); 
 
-  SparkMaxConfig config = new SparkMaxConfig();
-
-
-  public OuttakeTest() {}
+  }
 
   @Override
   public void periodic() {

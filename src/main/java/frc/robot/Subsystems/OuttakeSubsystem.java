@@ -25,10 +25,10 @@ import edu.wpi.first.wpilibj2.command.Commands;
 
 public class OuttakeSubsystem extends SubsystemBase {
   
-  PWMSparkMax Dropper;
+  SparkMax Dropper;
   
-  public Outtake(int dropperID) {
-    Dropper = new SparkMax(dropperID, MotorType.kBrushless); 
+  public void Outtake(int dropperID) {
+    Dropper = new SparkMax(dropperID, SparkMax.MotorType.kBrushless); 
 
     SparkMaxConfig config = new SparkMaxConfig(); 
 
