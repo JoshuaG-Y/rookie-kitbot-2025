@@ -5,8 +5,6 @@
 package frc.robot;
 
 import edu.wpi.first.util.sendable.SendableRegistry;
-//import edu.wpi.first.wpilibj.PowerDistribution;
-//import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
@@ -14,10 +12,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
-//import edu.wpi.first.wpilibj2.
-import frc.robot.Subsystems.DrivetrainSubsystem;
-//import frc.robot.Subsystems.OuttakeSubsystem;
+import frc.robot.Subsystems.Drive.DrivetrainSubsystem;
 import frc.robot.Subsystems.OuttakeTest;
 
 /**
