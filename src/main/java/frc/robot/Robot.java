@@ -21,8 +21,9 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 //import edu.wpi.first.wpilibj2.
 import frc.robot.Subsystems.DrivetrainSubsystem;
-import frc.robot.Subsystems.OuttakeSubsystem;
+
 //import frc.robot.Subsystems.OuttakeSubsystem;
+import frc.robot.Subsystems.OuttakeTest;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -41,7 +42,10 @@ public class Robot extends TimedRobot {
   CommandXboxController controller = new CommandXboxController(0);
   
   DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
-    public boolean precisionMode; 
+
+  OuttakeTest outtakesubsystemmain = new OuttakeTest(); 
+
+   
   
     private double modifyJoystick(double in) {
       if (Math.abs(in) < 0.1) {
@@ -60,11 +64,26 @@ public class Robot extends TimedRobot {
       // gearbox is constructed, you might have to invert the left side instead.
       m_rightDrive.setInverted(true);
       System.out.println("Class: Robot Running.");
+      
+
   
       drivetrainSubsystem.setDefaultCommand(
         drivetrainSubsystem.setVoltagesArcadeCommand(
             () -> modifyJoystick(-controller.getLeftY()),
             () -> modifyJoystick(-controller.getRightX())));
+
+      
+            controller.rightTrigger(0.2).whileTrue(
+              outtakesubsystemmain.run(() -> outtakesubsystemmain.setOuttakeVoltagesArcadeCommand(1.0) )
+
+            );
+            controller.leftTrigger(0.2).toggleOnTrue(
+            drivetrainSubsystem.run(() -> drivetrainSubsystem.setVoltagesArcadeCommand(
+              () -> modifyJoystick(-controller.getLeftY() * 0.1), 
+              () -> modifyJoystick(-controller.getRightX() * 0.1)
+            ))
+           );
+            
     }
     private DifferentialDrive drive; 
   
@@ -114,7 +133,7 @@ public class Robot extends TimedRobot {
     public void robotPeriodic() {
       CommandScheduler.getInstance().run();
   
-      controller.rightTrigger().whileTrue(null); 
+
 
     
 
