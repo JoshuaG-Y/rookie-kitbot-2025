@@ -25,23 +25,17 @@ import edu.wpi.first.wpilibj2.command.Commands;
 
 public class OuttakeSubsystem extends SubsystemBase {
   
-  PWMSparkMax Dropper;
+  SparkMax Dropper;
+  public static final int dropperID = 1; 
   
-  public Outtake(int dropperID) {
-    Dropper = new SparkMax(dropperID, MotorType.kBrushless); 
+
+    SparkMax = new SparkMax(dropperID, MotorType.kBrushed); 
 
     SparkMaxConfig config = new SparkMaxConfig(); 
 
     config.idleMode(IdleMode.kCoast);
 
-    Dropper.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-
-    
-  }
-
-  public static final int DROPPER_FRONT_ID = 1; 
-
-  PWMSparkMax frontDropper = new PWMSparkMax(DROPPER_FRONT_ID);
+  SparkMax frontDropper = new SparkMax(D);
 
   VoltageOut dropVoltage = new VoltageOut(0); 
 

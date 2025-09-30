@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+
+import com.ctre.phoenix6.controls.VoltageOut;
+
 import edu.wpi.first.util.sendable.SendableRegistry;
 //import edu.wpi.first.wpilibj.PowerDistribution;
 //import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
@@ -12,6 +16,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 //import edu.wpi.first.wpilibj2.
@@ -35,76 +40,81 @@ public class Robot extends TimedRobot {
 
   CommandXboxController controller = new CommandXboxController(0);
   
-  DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem(); 
-
-  private double modifyJoystick(double in) {
-    if (Math.abs(in) < 0.1) {
-      return 0; 
+  DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
+    public boolean precisionMode; 
+  
+    private double modifyJoystick(double in) {
+      if (Math.abs(in) < 0.1) {
+        return 0; 
+      }
+      return in * in * Math.signum(in);
     }
-    return in * in * Math.signum(in);
-  }
-
-  /** Called once at the beginning of the robot program. */
-  public Robot() {
-    SendableRegistry.addChild(m_robotDrive, m_leftDrive);
-    SendableRegistry.addChild(m_robotDrive, m_rightDrive);
-
-    // We need to invert one side of the drivetrain so that positive voltages
-    // result in both sides moving forward. Depending on how your robot's
-    // gearbox is constructed, you might have to invert the left side instead.
-    m_rightDrive.setInverted(true);
-    System.out.println("Class: Robot Running.");
-
-    drivetrainSubsystem.setDefaultCommand(
-      drivetrainSubsystem.setVoltagesArcadeCommand(
-          () -> modifyJoystick(-controller.getLeftY()),
-          () -> modifyJoystick(-controller.getRightX())));
-  }
-
-
-
-  /** This function is run once each time the robot enters autonomous mode. */
-  @Override
-  public void autonomousInit() {
-    m_timer.restart();
-  }
-
-  /** This function is called periodically during autonomous. */
-  @Override
-  public void autonomousPeriodic() {
-    // Drive for 2 seconds
-    if (m_timer.get() < 2.0) {
-      // Drive forwards half speed, make sure to turn input squaring off
-      m_robotDrive.arcadeDrive(0.5, 0.0, false);
-    } else {
-      m_robotDrive.stopMotor(); // stop robot
+  
+    /** Called once at the beginning of the robot program. */
+    public Robot() {
+      SendableRegistry.addChild(m_robotDrive, m_leftDrive);
+      SendableRegistry.addChild(m_robotDrive, m_rightDrive);
+  
+      // We need to invert one side of the drivetrain so that positive voltages
+      // result in both sides moving forward. Depending on how your robot's
+      // gearbox is constructed, you might have to invert the left side instead.
+      m_rightDrive.setInverted(true);
+      System.out.println("Class: Robot Running.");
+  
+      drivetrainSubsystem.setDefaultCommand(
+        drivetrainSubsystem.setVoltagesArcadeCommand(
+            () -> modifyJoystick(-controller.getLeftY()),
+            () -> modifyJoystick(-controller.getRightX())));
     }
-  }
+    private DifferentialDrive drive; 
+  
+  
+    /** This function is run once each time the robot enters autonomous mode. */
+    @Override
+    public void autonomousInit() {
+      m_timer.restart();
+    }
+  
+    /** This function is called periodically during autonomous. */
+    @Override
+    public void autonomousPeriodic() {
+      // Drive for 2 seconds
+      if (m_timer.get() < 2.0) {
+        // Drive forwards half speed, make sure to turn input squaring off
+        m_robotDrive.arcadeDrive(0.5, 0.0, false);
+      } else {
+        m_robotDrive.stopMotor(); // stop robot
+      }
+    }
+  
+    /** This function is called once each time the robot enters teleoperated mode. */
+    @Override
+    public void teleopInit() {}
+  
+    /** This function is called periodically during teleoperated mode. */
+    @Override
+    public void teleopPeriodic() {
+      m_robotDrive.arcadeDrive(-m_controller.getLeftY(), -m_controller.getRightX());
+    }
+  
+    /** This function is called once each time the robot enters test mode. */
+    @Override
+    public void testInit() {}
+  
+    /** This function is called periodically during test mode. */
+    @Override
+    public void testPeriodic() {}
+  
 
-  /** This function is called once each time the robot enters teleoperated mode. */
-  @Override
-  public void teleopInit() {}
 
-  /** This function is called periodically during teleoperated mode. */
-  @Override
-  public void teleopPeriodic() {
-    m_robotDrive.arcadeDrive(-m_controller.getLeftY(), -m_controller.getRightX());
-  }
 
-  /** This function is called once each time the robot enters test mode. */
-  @Override
-  public void testInit() {}
 
-  /** This function is called periodically during test mode. */
-  @Override
-  public void testPeriodic() {}
 
-  @Override
-  public void robotPeriodic() {
-    CommandScheduler.getInstance().run();
-
-    controller.rightTrigger().whileTrue(OuttakeSubsystem.setOuttakeVoltagesArcadeCommand(null));
-
+    @Override
+    public void robotPeriodic() {
+      CommandScheduler.getInstance().run();
+  
+      controller.rightTrigger().whileTrue(null); 
 
     
 
