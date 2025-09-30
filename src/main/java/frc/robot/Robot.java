@@ -73,7 +73,7 @@ public class Robot extends TimedRobot {
     controller.rightTrigger(0.8).whileTrue(
       m_outtakeSubsystem.run(() ->
         m_outtakeSubsystem.setOuttakeVoltagesArcadeCommand(
-          controller.getRightTriggerAxis() * 12
+          controller.getRightTriggerAxis()
         )
       )
     );
