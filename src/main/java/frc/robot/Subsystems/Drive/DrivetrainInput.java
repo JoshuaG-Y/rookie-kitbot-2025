@@ -12,8 +12,8 @@ public interface DrivetrainInput {
         public double rightOutputV = 0.0;
 
         // Both in meters per second
-        public double leftMaxVelocity = 0.0;
-        public double rightMaxVelocity = 0.0;
+        public double leftVelocity = 0.0;
+        public double rightVelocity = 0.0;
 
         // Both in meters
         public double leftPosM = 0.0;
