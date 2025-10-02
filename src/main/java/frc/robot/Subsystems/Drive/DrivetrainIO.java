@@ -1,6 +1,6 @@
 package frc.robot.Subsystems.Drive;
 
-//import org.littletonrobotics.junction.AutoLog;
+import org.littletonrobotics.junction.AutoLog;
 
 import edu.wpi.first.math.geometry.Pose2d;
 
