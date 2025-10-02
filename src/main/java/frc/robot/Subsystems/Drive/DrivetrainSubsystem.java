@@ -14,17 +14,14 @@ import com.ctre.phoenix6.controls.VoltageOut;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class DrivetrainSubsystem extends SubsystemBase {
-  public static final int LEFT_FRONT_TALON_ID = 1;
-  public static final int RIGHT_FRONT_TALON_ID = 2;
-  public static final int LEFT_BACK_TALON_ID = 3;
-  public static final int RIGHT_BACK_TALON_ID = 4;
 
-  TalonSRX leftFrontTalon = new TalonSRX(LEFT_FRONT_TALON_ID);
-  TalonSRX rightFrontTalon = new TalonSRX(RIGHT_FRONT_TALON_ID);
-  TalonSRX leftBackTalon = new TalonSRX(LEFT_BACK_TALON_ID);
-  TalonSRX rightBackTalon = new TalonSRX(RIGHT_BACK_TALON_ID);
+  TalonSRX leftFrontTalon = new TalonSRX(Constants.DriveConstants.frontLeftID);
+  TalonSRX rightFrontTalon = new TalonSRX(Constants.DriveConstants.frontRightID);
+  TalonSRX leftBackTalon = new TalonSRX(Constants.DriveConstants.backLeftID);
+  TalonSRX rightBackTalon = new TalonSRX(Constants.DriveConstants.backRightID);
   TalonSRXConfiguration config = new TalonSRXConfiguration();
   VoltageOut leftVoltage = new VoltageOut(0);
   VoltageOut rightVoltage = new VoltageOut(0);
