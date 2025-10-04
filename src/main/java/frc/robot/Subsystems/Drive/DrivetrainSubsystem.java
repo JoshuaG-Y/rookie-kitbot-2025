@@ -15,20 +15,31 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Subsystems.Drive.DrivetrainInput.DriveTrainIOInputs;
 
 public class DrivetrainSubsystem extends SubsystemBase {
 
-  TalonSRX leftFrontTalon = new TalonSRX(Constants.DriveConstants.frontLeftID);
-  TalonSRX rightFrontTalon = new TalonSRX(Constants.DriveConstants.frontRightID);
-  TalonSRX leftBackTalon = new TalonSRX(Constants.DriveConstants.backLeftID);
-  TalonSRX rightBackTalon = new TalonSRX(Constants.DriveConstants.backRightID);
-  TalonSRXConfiguration config = new TalonSRXConfiguration();
-  VoltageOut leftVoltage = new VoltageOut(0);
-  VoltageOut rightVoltage = new VoltageOut(0);
+  // Move commented code below this line to the real drive class
+  // TalonSRX leftFrontTalon = new TalonSRX(Constants.DriveConstants.frontLeftID);
+  // TalonSRX rightFrontTalon = new TalonSRX(Constants.DriveConstants.frontRightID);
+  // TalonSRX leftBackTalon = new TalonSRX(Constants.DriveConstants.backLeftID);
+  // TalonSRX rightBackTalon = new TalonSRX(Constants.DriveConstants.backRightID);
+  // TalonSRXConfiguration config = new TalonSRXConfiguration();
+  // VoltageOut leftVoltage = new VoltageOut(0);
+  // VoltageOut rightVoltage = new VoltageOut(0);
+
+  private DriveTrainIOInputs inputs;
+  private DrivetrainInput in;
+
+  public DrivetrainSubsystem(DrivetrainInput _in){
+    in = _in;
+    inputs = new DriveTrainIOInputs();
+  }
 
   private void setVoltages(double left, double right) {
-    leftFrontTalon.set(ControlMode.PercentOutput, left);
-    rightFrontTalon.set(ControlMode.PercentOutput, right);
+    // Move to real drive class
+    // leftFrontTalon.set(ControlMode.PercentOutput, left);
+    // rightFrontTalon.set(ControlMode.PercentOutput, right);
     System.out.println(right);
     System.out.println(left);
   }
@@ -46,21 +57,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
     });
   }
 
-  /** Creates a new DrivetrainSubsystem. */
-  public DrivetrainSubsystem() {
-    leftBackTalon.follow(leftFrontTalon);
-    rightBackTalon.follow(rightFrontTalon);
-    rightFrontTalon.setInverted(true);
-    rightBackTalon.setInverted(true);
-
-    leftBackTalon.configPeakCurrentLimit(80, 2);
-    leftFrontTalon.configPeakCurrentLimit(80, 2);
-    rightBackTalon.configPeakCurrentLimit(80, 2);
-    rightFrontTalon.configPeakCurrentLimit(80, 2);
-  }
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    // Update inputs
+    in.updateInputs(inputs);
   }
 }

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Subsystems.Drive.DrivetrainInputSimulation;
 import frc.robot.Subsystems.Drive.DrivetrainSubsystem;
 import frc.robot.Subsystems.OuttakeTest;
 
@@ -31,7 +32,7 @@ public class Robot extends TimedRobot {
 
   CommandXboxController controller = new CommandXboxController(0);
   
-  DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem(); 
+  DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem(new DrivetrainInputSimulation()); 
 
   OuttakeTest m_outtakeSubsystem = new OuttakeTest();
 
