@@ -6,27 +6,12 @@ package frc.robot.Subsystems.Drive;
 
 import java.util.function.DoubleSupplier;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
-import com.ctre.phoenix6.controls.VoltageOut;
-
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.Subsystems.Drive.DrivetrainInput.DriveTrainIOInputs;
 
 public class DrivetrainSubsystem extends SubsystemBase {
-
-  // Move commented code below this line to the real drive class
-  // TalonSRX leftFrontTalon = new TalonSRX(Constants.DriveConstants.frontLeftID);
-  // TalonSRX rightFrontTalon = new TalonSRX(Constants.DriveConstants.frontRightID);
-  // TalonSRX leftBackTalon = new TalonSRX(Constants.DriveConstants.backLeftID);
-  // TalonSRX rightBackTalon = new TalonSRX(Constants.DriveConstants.backRightID);
-  // TalonSRXConfiguration config = new TalonSRXConfiguration();
-  // VoltageOut leftVoltage = new VoltageOut(0);
-  // VoltageOut rightVoltage = new VoltageOut(0);
 
   private DriveTrainIOInputs inputs;
   private DrivetrainInput in;
@@ -37,9 +22,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   private void setVoltages(double left, double right) {
-    // Move to real drive class
-    // leftFrontTalon.set(ControlMode.PercentOutput, left);
-    // rightFrontTalon.set(ControlMode.PercentOutput, right);
     System.out.println(right);
     System.out.println(left);
   }
